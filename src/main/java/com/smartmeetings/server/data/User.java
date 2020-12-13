@@ -15,8 +15,14 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
-    private String telegramUsername;
+    @Column(nullable = false)
+    private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_number")
+    private Group group;
+
+    private String token;
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
@@ -24,10 +30,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setTelegramUsername(String telegramUsername) {
-        this.telegramUsername = telegramUsername;
     }
 
     public long getId() {
@@ -42,7 +44,15 @@ public class User {
         return email;
     }
 
-    public String getTelegramUsername() {
-        return telegramUsername;
+    public String getName() {
+        return name;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

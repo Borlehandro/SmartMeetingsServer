@@ -31,7 +31,6 @@ public class UserRequestController {
         User user = new User();
         user.setEmail(eMail);
         user.setPasswordHash(encoder.encode(password));
-        user.setTelegramUsername(telegramUsername);
         userRepo.save(user);
         return "Ok";
     }
