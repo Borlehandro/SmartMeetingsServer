@@ -32,6 +32,18 @@ public class User {
         this.email = email;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public long getId() {
         return id;
     }

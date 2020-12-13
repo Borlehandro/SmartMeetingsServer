@@ -30,6 +30,6 @@ public class TimetableScannerService {
     }
 
     public List<Integer> getAvailableGroups() {
-        return groupsRepo.getAvailableGroups();
+        return groupsRepo.getAvailableGroupNumbers();
     }
 }

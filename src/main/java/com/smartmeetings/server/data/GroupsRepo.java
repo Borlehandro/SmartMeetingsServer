@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -15,8 +16,20 @@ public class GroupsRepo {
     private EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
-    public List<Integer> getAvailableGroups() {
+    public List<Integer> getAvailableGroupNumbers() {
         return (List<Integer>) entityManager.createQuery("SELECT groupNumber FROM groups").getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Group> getAvailableGroups() {
+        return (List<Group>) entityManager.createQuery("SELECT groupNumber FROM groups").getResultList()
+                .stream().map(number -> {
+                    Group g = new Group();
+                    g.setGroupNumber((Integer) number);
+
+                    return g;
+                })
+                .collect(Collectors.toList());
     }
 
     public void addGroup(int groupNumber) {
