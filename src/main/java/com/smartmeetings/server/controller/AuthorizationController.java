@@ -14,23 +14,29 @@ import java.util.Optional;
 @RequestMapping("/auth")
 public class AuthorizationController {
 
+
     @Autowired
     UserAuthService authService;
 
+    // Todo use enum for return result
     @PostMapping("/register")
-    public void registerUser(@RequestParam String email,
-                             @RequestParam String name,
-                             @RequestParam String password,
-                             @RequestParam Optional<Integer> groupNumber,
-                             HttpServletResponse response) {
+    public @ResponseBody
+    String registerUser(@RequestParam String email,
+                        @RequestParam String name,
+                        @RequestParam String password,
+                        @RequestParam Optional<Integer> groupNumber,
+                        HttpServletResponse response) {
         try {
             String token = authService.registerUser(email, name, password, groupNumber);
             Cookie cookie = new Cookie("token", token);
             response.addCookie(cookie);
-        } catch (NoSuchAlgorithmException ignore) {
+        } catch (NoSuchAlgorithmException exception) {
+            return "ERROR";
         }
+        return "OK";
     }
 
+    // Todo use enum for return result
     @PostMapping("/login")
     public @ResponseBody
     String loginUser(@RequestParam String email,
@@ -48,6 +54,7 @@ public class AuthorizationController {
         return "ERROR";
     }
 
+    // Todo use enum for return result
     @PostMapping("/authenticate")
     public @ResponseBody
     String authUser(@RequestParam String email,
