@@ -12,5 +12,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Query(value = "select user_entity.name from users user_entity")
     List<String> findAllNames();
     Optional<User> findByEmail(String email);
+    Optional<User> findOneByToken(String token);
     boolean existsUserByEmailAndToken(String email, String token);
 }

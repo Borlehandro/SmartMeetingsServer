@@ -59,16 +59,11 @@ public class UserAuthService {
         return Optional.empty();
     }
 
-    public Optional<String> authUser(String email, String token) throws NoSuchAlgorithmException {
-        var opt = userRepo.findByEmail(email);
+    // Todo refactor
+    public Optional<String> authUser(String token) throws NoSuchAlgorithmException {
+        var opt = userRepo.findOneByToken(token);
         if (opt.isPresent()) {
-            User user = opt.get();
-            if (user.getToken().equals(token)) {
-                String newToken = generateToken();
-                user.setToken(newToken);
-                userRepo.save(user);
-                return Optional.of(newToken);
-            }
+            return Optional.of(token);
         }
         return Optional.empty();
     }

@@ -57,11 +57,10 @@ public class AuthorizationController {
     // Todo use enum for return result
     @PostMapping("/authenticate")
     public @ResponseBody
-    String authUser(@RequestParam String email,
-                    @CookieValue("token") String token,
+    String authUser(@CookieValue("token") String token,
                     HttpServletResponse response) {
         try {
-            var opt = authService.authUser(email, token);
+            var opt = authService.authUser(token);
             if (opt.isPresent()) {
                 String newToken = opt.get();
                 Cookie cookie = new Cookie("token", newToken);
